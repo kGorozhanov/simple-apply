@@ -1,0 +1,12 @@
+<mat-toolbar color="primary" class="row">
+  <ng-container *ngIf="loggedIn; else login">
+    <span>{{userName}}</span>
+    <span class="flex"></span>
+    <button mat-button (click)="logout.emit()">Logout</button>
+  </ng-container>
+</mat-toolbar>
+
+<ng-template #login>
+  <span class="flex"></span>
+  <button mat-button (click)="openLogin.emit()">Login</button>
+</ng-template>
