@@ -1,17 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {UserState} from './state/user.state';
 import {Observable} from 'rxjs';
 import {UserModel} from './models/user.model';
 import {CheckUser} from './actions/user.actions';
 import {Logout} from './actions/auth.actions';
-import {MatDialog, MatDialogConfig} from '@angular/material';
-import {LoginComponent} from './components/login/login.component';
+import {AuthDialogService} from './services/auth-dialog.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
   @Select(UserState.user) user: Observable<UserModel>;
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   @Select(UserState.loading) userLoading: Observable<boolean>;
   @Select(UserState.loggedIn) userLoggedIn: Observable<boolean>;
 
-  constructor(private store: Store, private dialog: MatDialog) {
+  constructor(private store: Store, private authDialog: AuthDialogService) {
   }
 
   ngOnInit() {
@@ -31,9 +31,6 @@ export class AppComponent implements OnInit {
   }
 
   openLogin() {
-    const config: MatDialogConfig = {
-      width: '300px'
-    } as MatDialogConfig;
-    this.dialog.open(LoginComponent, config);
+    this.authDialog.show();
   }
 }

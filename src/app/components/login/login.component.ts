@@ -5,6 +5,7 @@ import {Login} from '../../actions/auth.actions';
 import {MatDialogRef} from '@angular/material';
 import {AuthState} from '../../state/auth.state';
 import {Observable} from 'rxjs';
+import {UserState} from '../../state/user.state';
 
 @Component({
   selector: 'app-login',
@@ -30,9 +31,9 @@ export class LoginComponent implements OnInit {
       this.store
         .dispatch(new Login(this.form.value))
         .subscribe(() => {
-          const {user} = this.store.snapshot();
-          if (user.loggedIn) {
-            this.dialogRef.close();
+          const loggedIn = this.store.selectSnapshot(UserState.loggedIn);
+          if (loggedIn) {
+            this.dialogRef.close(true);
           }
         });
     }

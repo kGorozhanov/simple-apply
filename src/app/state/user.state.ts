@@ -1,4 +1,4 @@
-import {UserModel} from '../models/user.model';
+import {UserModel, UserType} from '../models/user.model';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {CheckUser} from '../actions/user.actions';
 import {AuthService} from '../services/auth.service';
@@ -64,5 +64,15 @@ export class UserState {
   @Selector()
   static loggedIn(state: UserStateModel): boolean {
     return state.loggedIn;
+  }
+
+  @Selector()
+  static userType(state: UserStateModel): string {
+    return state.data && state.data.type;
+  }
+
+  @Selector()
+  static userId(state: UserStateModel): number {
+    return state.data && state.data.id;
   }
 }

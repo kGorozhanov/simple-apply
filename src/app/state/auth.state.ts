@@ -3,7 +3,7 @@ import {Login, Logout} from '../actions/auth.actions';
 import {AuthService} from '../services/auth.service';
 import {catchError, switchMap, tap} from 'rxjs/internal/operators';
 import {CheckUser} from '../actions/user.actions';
-import {of} from 'rxjs';
+import {EMPTY} from 'rxjs';
 
 export interface AuthStateModel {
   loading: boolean;
@@ -33,10 +33,13 @@ export class AuthState {
       .pipe(
         switchMap(() => dispatch(new CheckUser())),
         tap(() => setState(initialState)),
-        catchError(() => of(setState({
-          loading: false,
-          hasError: true
-        })))
+        catchError(() => {
+          setState({
+            loading: false,
+            hasError: true
+          });
+          return EMPTY;
+        })
       );
   }
 

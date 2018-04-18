@@ -7,22 +7,34 @@ import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
 import {environment} from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthService} from './services/auth.service';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatDialogModule, MatInputModule, MatToolbarModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatDialogModule, MatInputModule, MatProgressSpinnerModule, MatToolbarModule} from '@angular/material';
 import {APP_STATE} from './state/index';
 import {HeaderComponent} from './components/header/header.component';
 import {LoginComponent} from './components/login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {ShowPropertyComponent} from './components/show-property/show-property.component';
+import {ApplyComponent} from './components/apply/apply.component';
+import {RouterModule} from '@angular/router';
+import {routes} from './app.routes';
+import {AuthDialogService} from './services/auth-dialog.service';
+import {ApplyDialogService} from './services/apply-dialog.service';
+import {ApplyService} from './services/apply.service';
+import {NgxsFormPluginModule} from '@ngxs/form-plugin';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    ShowPropertyComponent,
+    ApplyComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     NgxsModule.forRoot(APP_STATE),
     NgxsReduxDevtoolsPluginModule.forRoot({disabled: environment.production}),
     HttpClientModule,
@@ -30,10 +42,20 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatButtonModule,
     MatToolbarModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule,
+    RouterModule.forRoot(routes)
   ],
-  entryComponents: [LoginComponent],
-  providers: [AuthService],
+  entryComponents: [
+    LoginComponent,
+    ApplyComponent
+  ],
+  providers: [
+    AuthService,
+    AuthDialogService,
+    ApplyService,
+    ApplyDialogService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

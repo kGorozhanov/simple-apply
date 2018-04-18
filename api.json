@@ -5,7 +5,46 @@
       "firstName": "Amara",
       "lastName": "Boolean",
       "email": "test@test.com",
-      "password": "123123"
+      "password": "123123",
+      "type": "TENANT"
+    },
+    {
+      "id": 1,
+      "firstName": "Bob",
+      "lastName": "Virtuoz",
+      "email": "bob@test.com",
+      "password": "123123",
+      "type": "HOMEOWNER"
+    },
+    {
+      "id": 3,
+      "firstName": "John",
+      "lastName": "Zoobr",
+      "email": "john@test.com",
+      "password": "123123",
+      "type": "TENANT"
+    }
+  ],
+  "properties": [
+    {
+      "id": 0,
+      "userId": 1
+    }
+  ],
+  "applications": [
+    {
+      "id": 0,
+      "propertyId": 0,
+      "userId": 0,
+      "price": "2500",
+      "deposit": 5000
+    },
+    {
+      "price": "12",
+      "deposit": "122",
+      "userId": 3,
+      "propertyId": 0,
+      "id": 1
     }
   ]
 }

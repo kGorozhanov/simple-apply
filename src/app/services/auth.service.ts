@@ -20,13 +20,12 @@ export class AuthService {
   }
 
   login({email, password}: AuthFormModel): Observable<number> {
-    return this.http.get<UserModel[]>(`${API_ROOT}/users`)
+    return this.http.get<UserModel[]>(`${API_ROOT}/users?email=${email}&password=${password}`)
       .pipe(
         map((users: UserModel[]) => {
           if (!users.length) {
-            throwError({});
+            throwError(null);
           }
-
           AuthService.saveToken(users[0].id);
           return users[0].id;
         })
@@ -41,7 +40,7 @@ export class AuthService {
     return this.http.get<UserModel>(`${API_ROOT}/users/${userId}`).pipe(
       catchError(() => {
         AuthService.logout();
-        return throwError({});
+        return throwError(null);
       })
     );
   }

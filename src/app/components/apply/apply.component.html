@@ -1,0 +1,16 @@
+<div *ngIf="!(loading | async); else loader">
+  <h1>Apply</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Price" formControlName="price">
+    </mat-form-field>
+    <mat-form-field class="w-100">
+      <input matInput placeholder="Deposit" formControlName="deposit">
+    </mat-form-field>
+    <button mat-button [disabled]="loading | async">Submit</button>
+  </form>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>
